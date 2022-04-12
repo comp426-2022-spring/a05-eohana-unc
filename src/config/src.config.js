@@ -4,4 +4,4 @@ const utils = require("../utils/utilities.js")
 //config.modules = utils.addPath(config.modules, "./src/")
 // console.log(config)
 
-module.exports = utils.addPath(config.modules, "./src/")
+module.exports = utils.addPath(config.modules, "../")
