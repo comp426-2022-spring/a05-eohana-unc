@@ -4,9 +4,11 @@ const morgan = require("morgan")
 
 const fs = require("fs")
 const args = require("minimist")(process.argv)
-const getpath = require("./getpath.js")
-const db = require("./database.js")
-const coin = require("./modules/coin.js")
+
+const config = require("./src/config/general.config.js")
+const getpath = require(config.modules.utils)
+const db = require(config.modules.db)
+const coin = require(config.modules.coin)
 
 const data_path = ""
 const app = express()
