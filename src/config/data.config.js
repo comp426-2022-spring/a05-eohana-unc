@@ -24,7 +24,18 @@ const config = {
           }
         ]
       }
+    },
+    logfiles: {
+      access: {
+        path: './data/log/access.log'
+      }
+    },
+    statics: {
+      help: {
+        path: './static/help.txt'
+      }
     }
+    
   }
 }
 

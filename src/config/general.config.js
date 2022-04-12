@@ -1,9 +1,11 @@
 // Configuration goes here
 const config = {
   modules: {
-    db: './src/services/database.js',
-    coin: './src/controllers/coin.js',
-    utils: './src/utils/utilities.js'
+    db: 'services/database.js',
+    coin: 'controllers/coin.js',
+    utils: 'utils/utilities.js',
+    middleware: 'middleware/mymiddleware.js',
+    data: 'config/data.config.js'
   }
 }
 

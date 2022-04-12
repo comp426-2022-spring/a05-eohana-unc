@@ -5,17 +5,18 @@ const morgan = require("morgan")
 const fs = require("fs")
 const args = require("minimist")(process.argv)
 
-const config = require("./src/config/general.config.js")
+const config = require("./src/config/index.config.js")
 const getpath = require(config.modules.utils)
 const db = require(config.modules.db)
 const coin = require(config.modules.coin)
+const data = require(config.modules.data).data
 
 const data_path = ""
 const app = express()
 const port = args["port"] || 5000
 
 if (args["help"] || args["h"]){
-  const text = fs.readFileSync(`${getpath(process.argv[1])}/files/help.txt`, {encoding: "ascii", flag:"r"})
+  const text = fs.readFileSync(`${data.statics.help.path}`, {encoding: "ascii", flag:"r"})
   console.log(text)
   process.exit(0)
 }
@@ -66,7 +67,7 @@ if (args["debug"]=='true' || args["debug"]){
 }
 
 if (args["log"]!='false'){
-  const writeStream = fs.createWriteStream(`${getpath(process.argv[1])}/${data_path}access.log`, {flags: 'a'})
+  const writeStream = fs.createWriteStream(`${data.logfiles.access.path}`, {flags: 'a'})
   app.use(morgan ("combined", {stream: writeStream}))
 }
 
