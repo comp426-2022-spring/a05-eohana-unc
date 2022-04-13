@@ -2,7 +2,8 @@
 
 const controllers = {
   coin: require("./coin.js"),
-  help: require("./help.js")
+  help: require("./help.js"),
+  debugFns: require("./debug.js")
 }
 
 module.exports = controllers

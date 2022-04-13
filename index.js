@@ -1,8 +1,8 @@
 // Place your server entry point code here
 const express = require('express')
-const morgan = require("morgan")
+// const morgan = require("morgan")
 
-const fs = require("fs")
+// const fs = require("fs")
 const args = require("minimist")(process.argv)
 
 const modules = require("./src/config/index.config.js")
@@ -21,22 +21,15 @@ routes.help(args)
 
 app.use(middleware.logDB(db))
 
-
 if (args["debug"]=='true' || args["debug"]){
-  app.get('/app/log/access', (req, res) => {
-    const stmt = db.prepare("SELECT * FROM log").all()
-    res.status(200).json(stmt)
-  })
-
-  app.get('/app/error', (req, res) => {
-    res.status(500).end("Error test successful.")
-  })
+  // console.log(controllers)
+  app.get('/app/log/access', controllers.debugFns.debugAccessLog(db))
+  app.get('/app/error', controllers.debugFns.debugError)
 }
 
 if (args["log"]!='false'){
   app.use(middleware.logFile(data.logfiles.access.path))
 }
-
 
 app.get('/app', (req, res) => {
   res.statusCode = 200
@@ -76,13 +69,10 @@ app.get('/app/flip/call/:call(heads|tails)', (req, res) => {
   res.json(coin.flipACoin(req.params.call)).end()
 })
 
-
 app.use((req, res) => {
   res.status(404).send('404 NOT FOUND')
 })
 
-
 app.listen(port, () => {
   console.log('App listening on port %PORT%'.replace('%PORT%',port))
 })
-
