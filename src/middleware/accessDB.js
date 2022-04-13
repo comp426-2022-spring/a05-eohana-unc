@@ -1,7 +1,12 @@
+
+/**
+ * Middleware function to record request and response information into a database
+ * @param {Database} db   The Database Object pertaining to the log database
+ * @returns function containing req, res, and next paramaeters to add to express
+ */
 function logToDb(db){
   return (req, res, next) => {
     next()
-    console.log("now")
 
     let logdata = {
       remoteaddr: req.ip || "",

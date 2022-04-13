@@ -6,8 +6,6 @@ const fs = require("fs")
 const args = require("minimist")(process.argv)
 
 const modules = require("./src/config/index.config.js")
-// console.log(modules)
-// const getpath = require(modules.utils)
 
 const db = require(modules.db)
 const middleware = require(modules.middleware)
@@ -25,7 +23,6 @@ app.use(middleware.logDB(db))
 
 
 if (args["debug"]=='true' || args["debug"]){
-  // console.log("debug mode")
   app.get('/app/log/access', (req, res) => {
     const stmt = db.prepare("SELECT * FROM log").all()
     res.status(200).json(stmt)
@@ -37,8 +34,7 @@ if (args["debug"]=='true' || args["debug"]){
 }
 
 if (args["log"]!='false'){
-  const writeStream = fs.createWriteStream(`${data.logfiles.access.path}`, {flags: 'a'})
-  app.use(morgan ("combined", {stream: writeStream}))
+  app.use(middleware.logFile(data.logfiles.access.path))
 }
 
 
