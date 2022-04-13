@@ -8,52 +8,20 @@ const args = require("minimist")(process.argv)
 const modules = require("./src/config/index.config.js")
 // console.log(modules)
 // const getpath = require(modules.utils)
+
 const db = require(modules.db)
-const coin = (require(modules.controllers)).coin
+const middleware = require(modules.middleware)
+const controllers = require(modules.controllers)
+const coin = controllers.coin
 const data = require(modules.data)
 const routes = require(modules.routes)
 
 const app = express()
 const port = args["port"] || process.env.port || 5000
 
-// if (args["help"] || args["h"]){
-//   // const text = fs.readFileSync(`${data.statics.help.path}`, {encoding: "ascii", flag:"r"})
-//   // console.log(text)
-
-//   process.exit(0)
-// }
 routes.help(args)
 
-app.use((req, res, next) => {
-  next()
-
-  let logdata = {
-    remoteaddr: req.ip || "",
-    remoteuser: req.user || "",
-    time: Date.now(),
-    method: req.method || "",
-    url: req.url || "",
-    protocol: req.protocol || "",
-    httpversion: req.httpVersion || "",
-    secure: req.secure || "",
-    status: res.statusCode || "",
-    referer: req.headers['referer'] || "",
-    useragent: req.headers['user-agent'] || ""
-  }
-
-const dbInsert = (`INSERT INTO log 
-    (remoteaddr, remoteuser, time, 
-      method, url, protocol, 
-      httpversion, secure, status, 
-      referer, useragent) 
-  VALUES
-    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `)
-  const stmt = db.prepare(dbInsert)
-  stmt.run(logdata.remoteaddr, logdata.remoteuser, logdata.time, logdata.method,
-    logdata.url, logdata.protocol, logdata.httpversion, logdata.secure, logdata.status,
-    logdata.referer, logdata.useragent)
-})
+app.use(middleware.logDB(db))
 
 
 if (args["debug"]=='true' || args["debug"]){
