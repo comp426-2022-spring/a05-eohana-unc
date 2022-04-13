@@ -7,7 +7,7 @@ const config = {
     middleware: 'middleware/mymiddleware.js',
     data: 'config/data.config.js',
     routes: 'routes/routes.js',
-    controllers: 'controllers/controllers.js'
+    controllers: 'controllers/mycontrollers.js'
   }
 }
 
