@@ -21,47 +21,22 @@ routes.help(args)
 
 app.use(middleware.logDB(db))
 
+// -----------
 if (args["debug"]=='true' || args["debug"]){
   // console.log(controllers)
   app.get('/app/log/access', controllers.debugFns.debugAccessLog(db))
   app.get('/app/error', controllers.debugFns.debugError)
 }
-
+// --------
 if (args["log"]!='false'){
   app.use(middleware.logFile(data.logfiles.access.path))
 }
+// ---------
 
-app.get('/app', (req, res) => {
-  res.statusCode = 200
-  res.statusMessage = "OK"
-  res.writeHead(res.statusCode, {"Content-Type": "text/plain"})
-  res.end(res.statusCode + " " + res.statusMessage)
-})
+app.get('/app', controllers.endpoints.base)
+app.get('/app/flip', controllers.endpoints.flip)
 
-app.get('/app/flip', (req, res) => {
-  res.statusCode = 200
-  res.statusMessage = "OK"
-  // res.writeHead(res.statusCode, {"Content-Type": "application/json"})
-  let flip = coin.coinFlip()
-  // console.log(flip)
-  res.json({"flip": flip})
-  res.end()
-})
-
-app.get('/app/flips/:number', (req, res) => {
-  res.statusCode = 200
-  res.statusMessage = "OK"
-  // res.writeHead(res.statusCode, {"Content-Type": "application/json"})
-  numFlips = parseInt(req.params.number) || 1
-  let flips = coin.coinFlips(numFlips)
-  // console.log(flip)
-  res.json({
-    // "aaa":"bbb"
-    "raw": flips,
-    "summary": coin.countFlips(flips)
-})
-  res.end()
-})
+app.get('/app/flips/:number', controllers.endpoints.flips)
 
 app.get('/app/flip/call/:call(heads|tails)', (req, res) => {
   res.statusCode = 200

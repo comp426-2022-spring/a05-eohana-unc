@@ -3,7 +3,8 @@
 const controllers = {
   coin: require("./coin.js"),
   help: require("./help.js"),
-  debugFns: require("./debug.js")
+  debugFns: require("./debug.js"),
+  endpoints: require("./endpoints.js")
 }
 
 module.exports = controllers
