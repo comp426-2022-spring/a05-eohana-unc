@@ -1,5 +1,5 @@
 // This directory contains general utilities that you can use as helper functions throughout other scripts
-
+const fs = require("fs")
 /**
  * I don't know if I'll reuse this function yet 
  * 
@@ -101,12 +101,22 @@ function initializeDatabase(db, tables){
   return db
 }
 
+/**
+ * Reads the content of a text file and returns a String of that content
+ * @param {String} filename   The name and path of a text file
+ * @returns String            The content of the file
+ */
+function readTextFile(filename){
+  return fs.readFileSync(filename, {encoding:"utf-8", flags: "r"})
+}
+
 const utils = {
   addPath: addpath,
   getPath: getpath,
   getDatabaseTable: getDatabaseTable,
   setUpTable: setUpTable,
-  initializeDatabase: initializeDatabase
+  initializeDatabase: initializeDatabase,
+  readTextFile: readTextFile
 }
 
 module.exports = utils

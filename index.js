@@ -9,18 +9,20 @@ const modules = require("./src/config/index.config.js")
 // console.log(modules)
 // const getpath = require(modules.utils)
 const db = require(modules.db)
-const coin = require(modules.coin)
+const coin = (require(modules.controllers)).coin
 const data = require(modules.data)
+const routes = require(modules.routes)
 
 const app = express()
-const port = args["port"] || 5000
+const port = args["port"] || process.env.port || 5000
 
-if (args["help"] || args["h"]){
-  const text = fs.readFileSync(`${data.statics.help.path}`, {encoding: "ascii", flag:"r"})
-  console.log(text)
-  process.exit(0)
-}
+// if (args["help"] || args["h"]){
+//   // const text = fs.readFileSync(`${data.statics.help.path}`, {encoding: "ascii", flag:"r"})
+//   // console.log(text)
 
+//   process.exit(0)
+// }
+routes.help(args)
 
 app.use((req, res, next) => {
   next()
