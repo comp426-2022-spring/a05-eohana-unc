@@ -38,15 +38,9 @@ app.get('/app/flip', controllers.endpoints.flip)
 
 app.get('/app/flips/:number', controllers.endpoints.flips)
 
-app.get('/app/flip/call/:call(heads|tails)', (req, res) => {
-  res.statusCode = 200
-  res.statusMessage = "OK"
-  res.json(coin.flipACoin(req.params.call)).end()
-})
+app.get('/app/flip/call/:call(heads|tails)',controllers.endpoints.flipCall)
 
-app.use((req, res) => {
-  res.status(404).send('404 NOT FOUND')
-})
+app.use(controllers.endpoints.notFound)
 
 app.listen(port, () => {
   console.log('App listening on port %PORT%'.replace('%PORT%',port))

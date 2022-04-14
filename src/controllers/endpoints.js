@@ -29,10 +29,22 @@ function flips(req, res) {
   res.end()
 }
 
+function flipCall(req, res){
+  res.statusCode = 200
+  res.statusMessage = "OK"
+  res.json(coin.flipACoin(req.params.call)).end()
+}
+
+function notFound(req, res){
+  res.status(404).send('404 NOT FOUND')
+}
+
 const functions = {
   base: base,
   flip: flip,
-  flips: flips
+  flips: flips,
+  flipCall: flipCall,
+  notFound: notFound
 }
 
 module.exports = functions

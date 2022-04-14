@@ -85,3 +85,6 @@
 ::ffff:127.0.0.1 - - [13/Apr/2022:21:49:04 +0000] "GET /app/flips/50 HTTP/1.1" 200 443 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0"
 ::ffff:127.0.0.1 - - [13/Apr/2022:21:49:09 +0000] "GET /app/flips/50 HTTP/1.1" 200 443 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0"
 ::ffff:127.0.0.1 - - [13/Apr/2022:21:49:11 +0000] "GET /app/flips/50 HTTP/1.1" 200 443 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0"
+::ffff:127.0.0.1 - - [14/Apr/2022:02:22:13 +0000] "GET /app/flip/call/heads HTTP/1.1" 200 46 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0"
+::ffff:127.0.0.1 - - [14/Apr/2022:02:23:56 +0000] "GET /app/flip/call/extra HTTP/1.1" 404 13 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0"
+::ffff:127.0.0.1 - - [14/Apr/2022:02:24:01 +0000] "GET /app/flip/now HTTP/1.1" 404 13 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:99.0) Gecko/20100101 Firefox/99.0"
