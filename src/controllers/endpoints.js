@@ -10,9 +10,7 @@ function base(req, res){
 function flip(req, res) {
   res.statusCode = 200
   res.statusMessage = "OK"
-  // res.writeHead(res.statusCode, {"Content-Type": "application/json"})
   let flip = coin.coinFlip()
-  // console.log(flip)
   res.json({"flip": flip})
   res.end()
 }
