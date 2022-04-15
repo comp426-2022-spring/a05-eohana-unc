@@ -32,6 +32,9 @@ data =  {
   statics: {
     help: {
       path: './static/help.txt'
+    },
+    public: {
+      path: './public'
     }
   }
   

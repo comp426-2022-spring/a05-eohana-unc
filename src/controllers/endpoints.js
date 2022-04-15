@@ -18,7 +18,8 @@ function flip(req, res) {
 function flips(req, res) {
   res.statusCode = 200
   res.statusMessage = "OK"
-  numFlips = parseInt(req.params.number) || 1
+  
+  numFlips = parseInt(req.params.number) || req.body.number || 1
   let flips = coin.coinFlips(numFlips)
   res.json({
     "raw": flips,
@@ -28,9 +29,10 @@ function flips(req, res) {
 }
 
 function flipCall(req, res){
+  const guess = req.params.guess || req.body.guess
   res.statusCode = 200
   res.statusMessage = "OK"
-  res.json(coin.flipACoin(req.params.call)).end()
+  res.json(coin.flipACoin(guess)).end()
 }
 
 function notFound(req, res){

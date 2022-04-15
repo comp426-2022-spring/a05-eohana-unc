@@ -1,5 +1,5 @@
 // Place your server entry point code here
-const express = require('express')
+// const express = require('express')
 // const morgan = require("morgan")
 
 // const fs = require("fs")
@@ -18,7 +18,8 @@ const port = args["port"] || process.env.port || 5000
 
 routes.app(port, args, {
   db: db, 
-  log: data.logfiles.access.path
+  log: data.logfiles.access.path,
+  public: data.statics.public.path
 })
 // routes.help(args)
 

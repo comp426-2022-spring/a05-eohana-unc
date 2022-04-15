@@ -4,10 +4,16 @@ const controllers = require(modules.controllers)
 const express = require('express')
 const app = express()
 
-
+/**
+ * Sets up the specific server for this package with the endpoints
+ * @param {int} port      Port number
+ * @param {Object} args   CLI args
+ * @param {Object} data   Data objects
+ */
 function server(port, args, data){
   routes.help(args)
 
+  app.use(express.json())
   app.use(middleware.logDB(data.db))
 
   // -----------
@@ -26,8 +32,12 @@ function server(port, args, data){
   app.get('/app/flip', controllers.endpoints.flip)
 
   app.get('/app/flips/:number', controllers.endpoints.flips)
+  app.post('/app/flip/coins', controllers.endpoints.flips)
 
-  app.get('/app/flip/call/:call(heads|tails)',controllers.endpoints.flipCall)
+  app.get('/app/flip/call/:guess(heads|tails)',controllers.endpoints.flipCall)
+
+  app.post('/app/flip/call/', controllers.endpoints.flipCall)
+  app.get('/', express.static(data.public))
 
   app.use(controllers.endpoints.notFound)
 
