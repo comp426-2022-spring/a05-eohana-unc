@@ -2,13 +2,15 @@
 function addNavListener(button, focusId, func){
   button.addEventListener("click", () => {
     const focus = document.getElementById(focusId)
-    const divs = document.getElementsByTagName("div")
-    // const active = document.getElementsByClassName("active")
+    console.log(focus)
+    // const divs = document.getElementsByTagName("div")
+    const active = document.getElementsByClassName("active")
 
     func(focus)
     
-    activateFocusDiv(divs, focus)
-  
+    document.getElementById("home").className = "hidden"
+    activateFocusDiv(active, focus)
+    
   })
 }
 function activateFocusDiv(divs, newFocus){
@@ -57,8 +59,16 @@ async function postData(url = '', data = {}) {
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
-function createImageElement(filename){
-  return `<img src="${filename}">`
+function createImageElement(filename, className){
+  return `<img src="${filename}" class="${className || "smallcoin"}">`
+}
+
+function addCoin(result){
+  if (result === "heads")
+    return createImageElement("assets/img/heads.png")
+  if (result === "tails")
+    return createImageElement("assets/img/tails.png")
+  return  focus.innerHTML = createImageElement("assets/img/coin.png")
 }
 
 const home = document.getElementById("homenav")
@@ -73,13 +83,14 @@ addNavListener(single, "single", (focus) => {
     .then(data => {
     //  focus.innerText = data.flip
       // console.log(data)
-      if (data.flip === "heads"){
-        focus.innerHTML = createImageElement("assets/img/heads.png")
-      } else if (data.flip === "tails"){
-        focus.innerHTML = createImageElement("assets/img/tails.png")
-      } else {
-        focus.innerHTML = createeImageElement("assets/img/coin.png")
-      }
+      // if (data.flip === "heads"){
+      //   focus.innerHTML = createImageElement("assets/img/heads.png")
+      // } else if (data.flip === "tails"){
+      //   focus.innerHTML = createImageElement("assets/img/tails.png")
+      // } else {
+      //   focus.innerHTML = createeImageElement("assets/img/coin.png")
+      // }
+      focus.innerHTML = addCoin(data.flip, "bigcoin")
     }
   );
   // console.dir(response)
@@ -110,8 +121,26 @@ addNavListener(home, "home", (focus) => {
 
 addNavListener(multi, "multi", (focus) => {
   // focus.innerText = "multi"
-  focus.getElementById("multi-coins").addEventListener("submit", ()=>{
-    
+  document.getElementById("multi-coins").addEventListener("submit", (event)=>{
+    const form = event.target
+    event.preventDefault()
+    // console.log(event)
+    const formdata = new FormData(form)
+    // console.log(event.target)
+    // console.log(formdata.get("number"))
+    // console.log(formdata)
+    postData("app/flip/coins", {number: formdata.get("number")})
+      .then(data => {
+        // const parent = form.parentNode
+        const parent = document.getElementById("display-flips")
+        parent.innerHTML = ""
+        console.log(data)
+        for (let item of data.raw){
+          console.log(parent)
+          parent.insertAdjacentHTML("beforeend", addCoin(item, "smallcoin"))
+          // event.target.parentNode.innerHTML += addCoin(item)
+        }
+      })
   })
 })
 
