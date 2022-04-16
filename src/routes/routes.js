@@ -1,6 +1,6 @@
 routes = {
   help: require("./runHelp.js"),
-  app: require("./app.js")
+  server: require("./server.js")
 }
 
 module.exports = routes

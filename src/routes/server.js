@@ -12,9 +12,11 @@ const app = express()
  */
 function server(port, args, data){
   routes.help(args)
+  
+  app.use(middleware.logDB(data.db))
 
   app.use(express.json())
-  app.use(middleware.logDB(data.db))
+
 
   // -----------
   if (args["debug"]=='true' || args["debug"]){
@@ -37,7 +39,8 @@ function server(port, args, data){
   app.get('/app/flip/call/:guess(heads|tails)',controllers.endpoints.flipCall)
 
   app.post('/app/flip/call/', controllers.endpoints.flipCall)
-  app.get('/', express.static(data.public))
+  // app.get('/', express.static(data.public))
+  app.use(express.static(data.public))
 
   app.use(controllers.endpoints.notFound)
 

@@ -16,7 +16,7 @@ const routes = require(modules.routes)
 // const app = express()
 const port = args["port"] || process.env.port || 5000
 
-routes.app(port, args, {
+routes.server(port, args, {
   db: db, 
   log: data.logfiles.access.path,
   public: data.statics.public.path
