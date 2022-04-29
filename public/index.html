@@ -33,7 +33,7 @@
       <button id="guessnav">Guess the result</button>
     </nav>
     <div id="home">
-      <img src="assets/img/coin.png">
+      <img class="bigcoin" src="assets/img/coin.png">
     </div>    
     <div id="single" class="hidden">
       
@@ -47,8 +47,15 @@
 
       <div id="display-flips"></div>
     </div>
-    <div id="guess">
-      
+    <div id="guess" class="hidden">
+      <form id="user_guess">
+        <input type="radio" id="heads" name="user_guess" value="heads">
+        <label for="heads">Heads</label><br>
+        <input type="radio" id="tails" name="user_guess" value="tails">
+        <label for="tails">Tails</label><br>
+        <input type="submit">
+      </form>
+      <div id="display-result"></div> 
     </div>
 	<script src="main.js"></script>
   </body>

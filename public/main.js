@@ -13,6 +13,7 @@ function addNavListener(button, focusId, func){
     
   })
 }
+
 function activateFocusDiv(divs, newFocus){
   for (let div of divs){
     // console.log(div)
@@ -63,11 +64,11 @@ function createImageElement(filename, className){
   return `<img src="${filename}" class="${className || "smallcoin"}">`
 }
 
-function addCoin(result){
+function addCoin(result, className){
   if (result === "heads")
-    return createImageElement("assets/img/heads.png")
+    return createImageElement("assets/img/heads.png", className)
   if (result === "tails")
-    return createImageElement("assets/img/tails.png")
+    return createImageElement("assets/img/tails.png", className)
   return  focus.innerHTML = createImageElement("assets/img/coin.png")
 }
 
@@ -121,34 +122,61 @@ addNavListener(home, "home", (focus) => {
 
 addNavListener(multi, "multi", (focus) => {
   // focus.innerText = "multi"
-  document.getElementById("multi-coins").addEventListener("submit", (event)=>{
-    const form = event.target
-    event.preventDefault()
-    // console.log(event)
-    const formdata = new FormData(form)
-    // console.log(event.target)
-    // console.log(formdata.get("number"))
-    // console.log(formdata)
-    postData("app/flip/coins", {number: formdata.get("number")})
-      .then(data => {
-        // const parent = form.parentNode
-        const parent = document.getElementById("display-flips")
-        parent.innerHTML = ""
-        console.log(data)
-        for (let item of data.raw){
-          console.log(parent)
-          parent.insertAdjacentHTML("beforeend", addCoin(item, "smallcoin"))
-          // event.target.parentNode.innerHTML += addCoin(item)
-        }
-      })
-  })
+
 })
 
 addNavListener(guess, "guess", (focus) => {
-  focus.innerText = "guess"
+  // focus.innerText = "guess"
+  
 })
 
 
 
+document.getElementById("multi-coins").addEventListener("submit", (event)=>{
+  const form = event.target
+  event.preventDefault()
+  // console.log(event)
+  const formdata = new FormData(form)
+  // console.log(event.target)
+  // console.log(formdata.get("number"))
+  // console.log(formdata)
+  postData("app/flip/coins", {number: formdata.get("number")})
+    .then(data => {
+      // const parent = form.parentNode
+      const parent = document.getElementById("display-flips")
+      parent.innerHTML = ""
+      console.log(data)
+      for (let item of data.raw){
+        console.log(parent)
+        parent.insertAdjacentHTML("beforeend", addCoin(item, "smallcoin"))
+        // event.target.parentNode.innerHTML += addCoin(item)
+      }
+    })
+});
 
-
+document.getElementById("user_guess").addEventListener("submit", (event) => {
+  event.preventDefault()
+  const form = event.target
+  const formdata = new FormData(form)
+  console.log(formdata.get("user_guess"))
+  getData(`app/flip/call/${formdata.get("user_guess")}`)
+    .then(data => {
+      const parent=document.getElementById("display-result")
+      console.log(data)
+      parent.innerHTML = `
+      <table>
+        <tr>
+          <td>Call:</td>
+          <td>${data["call"]}</td>
+        </tr>
+        <tr>
+        <td>Flip:</td>
+        <td>${addCoin(data["flip"], "smallcoin")}</td>
+      </tr>
+      <tr>
+        <td>Result:</td>
+        <td>${data["result"]}</td>
+      </tr>
+      </table>`
+    })
+});
