@@ -84,7 +84,7 @@ Keep-Alive: timeout=5
 #### Request cURL
 
 ```
-curl http://localhost:5000/app/flip
+curl -i http://localhost:5000/app/flip
 ```
 
 #### Response body
@@ -96,7 +96,14 @@ curl http://localhost:5000/app/flip
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 16
+ETag: W/"10-VYm8Bk1/RW8RGhDXdTwBYk6lbGE"
+Date: Fri, 29 Apr 2022 01:26:48 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/flips/:number/ (GET)
@@ -104,19 +111,27 @@ curl http://localhost:5000/app/flip
 #### Request cURL
 
 ```
-
+curl -i http://localhost:5000/app/flips/10
 ```
 
 #### Response body
 
 ```
+{"raw":["tails","tails","tails","tails","tails","heads","tails","tails","tails","heads"],"summary":{"tails":8,"heads":2
 
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 121
+ETag: W/"79-G6pCmrloMOWUUtASmausKEXlEnI"
+Date: Fri, 29 Apr 2022 01:34:29 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/flip/coin/ (GET)
@@ -124,7 +139,7 @@ curl http://localhost:5000/app/flip
 #### Request cURL
 
 ```
-
+I'm not really sure what this one is supposed to do at this point (as opposed to get /app/flip/call/guess) ???
 ```
 
 #### Response body
@@ -144,19 +159,42 @@ curl http://localhost:5000/app/flip
 #### Request cURL
 
 ```
-
+curl -i http://localhost:5000/app/flip/call/heads
+```
+or 
+```
+curl -i http://localhost:5000/app/flip/call/tails
 ```
 
 #### Response body
 
 ```
-
+{"call":"heads","flip":"heads","result":"win"}
+```
+or 
+```
+{"call":"heads","flip":"tails","result":"lose"}
+```
+or 
+```
+{"call":"tails","flip":"tails","result":"win"}
+```
+or
+```
+{"call":"tails","flip":"heads","result":"lose"}
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 46
+ETag: W/"2e-dW3ed8gY96gkWWRLhNdjW7lPbec"
+Date: Fri, 29 Apr 2022 01:41:44 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
 ### /app/flip/call/ (POST)
@@ -218,39 +256,51 @@ Keep-Alive: timeout=5
 #### Request cURL
 
 ```
-
+curl -i http://localhost:5000/app/log/access
 ```
 
 #### Response body
 
 ```
-
+[{"id":1668,"remoteaddr":"::ffff:127.0.0.1","remoteuser":"","time":1651196504294,"method":"GET","url":"/app/flip/call/tails","protocol":"http","httpversion":"1.1","secure":"","status":200,"referer":"","useragent":"curl/7.64.1"},{"id":1669,"remoteaddr":"::ffff:127.0.0.1","remoteuser":"","time":1651196607172,"method":"GET","url":"/app/log/access","protocol":"http","httpversion":"1.1","secure":"","status":200,"referer":"","useragent":"curl/7.64.1"}]
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 529468
+ETag: W/"8143c-FODbQYd2geyy15L2D6Xhe27BcUE"
+Date: Fri, 29 Apr 2022 01:46:38 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
 ```
 
-### /app/log/access/ (GET)
+### /app/error/ (GET)
 
 #### Request cURL
 
 ```
-
+curl -i http://localhost:5000/app/error
 ```
 
 #### Response body
 
 ```
-
+Error test successful.
 ```
 
 #### Response headers
 
 ```
-
+HTTP/1.1 500 Internal Server Error
+X-Powered-By: Express
+Date: Fri, 29 Apr 2022 01:48:00 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Content-Length: 22
 ```
 
 ### /app/log/error/ (GET)
